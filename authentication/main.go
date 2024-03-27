@@ -24,5 +24,8 @@ func main() {
 	// Public routes
 	r.HandleFunc("/courses", handlers.GetAllCoursesHandler).Methods("GET") // New line
 
+	//! api for adding new course
+	r.HandleFunc("/courses", handlers.AddCourseHandler).Methods("POST") // Add new course
+
 	log.Fatal(http.ListenAndServe(":9080", r))
 }
