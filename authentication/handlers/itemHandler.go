@@ -26,7 +26,7 @@ func GetItemsHandler(w http.ResponseWriter, r *http.Request) {
     endIndex := startIndex + limit
 
     if startIndex > len(models.Items) {
-        json.NewEncoder(w).Encode([]models.Item{}) // Return an empty slice if startIndex exceeds the number of items
+        json.NewEncoder(w).Encode([]models.Item{}) // Empty response
         return
     }
 

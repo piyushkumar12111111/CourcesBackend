@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -53,7 +54,13 @@ func main() {
 	//! Register the route for getting items with pagination
 	r.HandleFunc("/items", handlers.GetItemsHandler).Methods("GET")
 
+	//!  Selling routhes
+	r.HandleFunc("/selling", handlers.GetAllItemsHandler).Methods("GET")
+	r.HandleFunc("/selling", handlers.AddItemHandler).Methods("POST")
+
 	//! Start the server
-	log.Fatal(http.ListenAndServe(":9080", r))
+
+	fmt.Println("Server is running on port 9050")
+	log.Fatal(http.ListenAndServe(":9050", r))
 
 }
