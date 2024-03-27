@@ -40,11 +40,12 @@ func main() {
 	 // Contact routes
 	 r.HandleFunc("/contacts", handlers.AddContactHandler).Methods("POST")
 	 r.HandleFunc("/contacts", handlers.GetAllContactsHandler).Methods("GET") // Although you asked for POST, typically, retrieval uses GET
+    
 
+	//! Teacher routes
+	  r.HandleFunc("/courses/{courseID}/teachers", handlers.AddTeacherToCourseHandler).Methods("POST")
+	  r.HandleFunc("/courses/{courseID}/teachers", handlers.GetTeachersOfCourseHandler).Methods("GET")
 
 	//! Start the server
-
-
-
 	log.Fatal(http.ListenAndServe(":9080", r))
 }
