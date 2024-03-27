@@ -35,27 +35,25 @@ func main() {
 	r.HandleFunc("/profile/{userID}", handlers.GetProfileHandler).Methods("GET")
 	r.HandleFunc("/profile/{userID}", handlers.DeleteProfileHandler).Methods("DELETE")
 
-
 	//! Contact routes
-	 // Contact routes
-	 r.HandleFunc("/contacts", handlers.AddContactHandler).Methods("POST")
-	 r.HandleFunc("/contacts", handlers.GetAllContactsHandler).Methods("GET") // Although you asked for POST, typically, retrieval uses GET
-    
+	// Contact routes
+	r.HandleFunc("/contacts", handlers.AddContactHandler).Methods("POST")
+	r.HandleFunc("/contacts", handlers.GetAllContactsHandler).Methods("GET") // Although you asked for POST, typically, retrieval uses GET
 
 	//! Teacher routes
-	  r.HandleFunc("/courses/{courseID}/teachers", handlers.AddTeacherToCourseHandler).Methods("POST")
-	  r.HandleFunc("/courses/{courseID}/teachers", handlers.GetTeachersOfCourseHandler).Methods("GET")
+	r.HandleFunc("/courses/{courseID}/teachers", handlers.AddTeacherToCourseHandler).Methods("POST")
+	r.HandleFunc("/courses/{courseID}/teachers", handlers.GetTeachersOfCourseHandler).Methods("GET")
 
+	//! Post routes
+	r.HandleFunc("/posts", handlers.AddPostHandler).Methods("POST")
+	r.HandleFunc("/posts", handlers.GetAllPostsHandler).Methods("GET")
 
+	r.HandleFunc("/posts/{id}", handlers.DeletePostHandler).Methods("DELETE")
 
-	 //! Post routes
-	 r.HandleFunc("/posts", handlers.AddPostHandler).Methods("POST")
-	 r.HandleFunc("/posts", handlers.GetAllPostsHandler).Methods("GET")  
-
-	 r.HandleFunc("/posts/{id}", handlers.DeletePostHandler).Methods("DELETE")
+	//! Register the route for getting items with pagination
+	r.HandleFunc("/items", handlers.GetItemsHandler).Methods("GET")
 
 	//! Start the server
 	log.Fatal(http.ListenAndServe(":9080", r))
-
 
 }
