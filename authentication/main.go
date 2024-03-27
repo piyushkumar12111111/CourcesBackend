@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -35,16 +36,40 @@ func main() {
 	r.HandleFunc("/profile/{userID}", handlers.GetProfileHandler).Methods("GET")
 	r.HandleFunc("/profile/{userID}", handlers.DeleteProfileHandler).Methods("DELETE")
 
-
 	//! Contact routes
-	 // Contact routes
-	 r.HandleFunc("/contacts", handlers.AddContactHandler).Methods("POST")
-	 r.HandleFunc("/contacts", handlers.GetAllContactsHandler).Methods("GET") // Although you asked for POST, typically, retrieval uses GET
+	// Contact routes
+	r.HandleFunc("/contacts", handlers.AddContactHandler).Methods("POST")
+	r.HandleFunc("/contacts", handlers.GetAllContactsHandler).Methods("GET") // Although you asked for POST, typically, retrieval uses GET
+
+	//! Teacher routes
+	r.HandleFunc("/courses/{courseID}/teachers", handlers.AddTeacherToCourseHandler).Methods("POST")
+	r.HandleFunc("/courses/{courseID}/teachers", handlers.GetTeachersOfCourseHandler).Methods("GET")
+
+	//! Post routes
+	r.HandleFunc("/posts", handlers.AddPostHandler).Methods("POST")
+	r.HandleFunc("/posts", handlers.GetAllPostsHandler).Methods("GET")
+
+	r.HandleFunc("/posts/{id}", handlers.DeletePostHandler).Methods("DELETE")
+
+	//! Register the route for getting items with pagination
+	r.HandleFunc("/items", handlers.GetItemsHandler).Methods("GET")
+
+	//!  Selling routhes
+	r.HandleFunc("/selling", handlers.GetAllItemsHandler).Methods("GET")
+	r.HandleFunc("/selling", handlers.AddItemHandler).Methods("POST")
+	r.HandleFunc("/selling/{id}", handlers.DeleteItemHandler).Methods("DELETE")
+	r.HandleFunc("/selling/{id}", handlers.UpdateItemHandler).Methods("PUT")
+	r.HandleFunc("/sellingall", handlers.DeleteAllItemHandler).Methods("DELETE")
+
+
+	//! Define the route for sending mail
+	
+    r.HandleFunc("/sendmail", handlers.SendMailHandler).Methods("POST")
 
 
 	//! Start the server
 
+	fmt.Println("Server is running on port 9050")
+	log.Fatal(http.ListenAndServe(":9050", r))
 
-
-	log.Fatal(http.ListenAndServe(":9080", r))
 }
