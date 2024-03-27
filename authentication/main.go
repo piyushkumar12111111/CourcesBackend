@@ -35,5 +35,16 @@ func main() {
 	r.HandleFunc("/profile/{userID}", handlers.GetProfileHandler).Methods("GET")
 	r.HandleFunc("/profile/{userID}", handlers.DeleteProfileHandler).Methods("DELETE")
 
+
+	//! Contact routes
+	 // Contact routes
+	 r.HandleFunc("/contacts", handlers.AddContactHandler).Methods("POST")
+	 r.HandleFunc("/contacts", handlers.GetAllContactsHandler).Methods("GET") // Although you asked for POST, typically, retrieval uses GET
+
+
+	//! Start the server
+
+
+
 	log.Fatal(http.ListenAndServe(":9080", r))
 }
