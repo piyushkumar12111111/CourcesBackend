@@ -57,6 +57,8 @@ func main() {
 	//!  Selling routhes
 	r.HandleFunc("/selling", handlers.GetAllItemsHandler).Methods("GET")
 	r.HandleFunc("/selling", handlers.AddItemHandler).Methods("POST")
+	r.HandleFunc("/selling/{id}", handlers.DeleteItemHandler).Methods("DELETE")
+	r.HandleFunc("/selling/{id}", handlers.UpdateItemHandler).Methods("PUT")
 
 	//! Start the server
 
