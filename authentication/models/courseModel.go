@@ -27,3 +27,14 @@ func ValidateCourse(course Course) error {
     }
     return nil
 }
+
+
+func UpdateCourse(updatedCourse Course) error {
+    for i, course := range Courses {
+        if course.ID == updatedCourse.ID {
+            Courses[i] = updatedCourse
+            return nil // Successfully updated
+        }
+    }
+    return errors.New("course not found")
+}

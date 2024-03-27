@@ -33,3 +33,28 @@ func AddCourseHandler(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusOK)
     json.NewEncoder(w).Encode("New course added")
 }
+
+
+func UpdateCourseHandler(w http.ResponseWriter, r *http.Request) {
+    var updatedCourse models.Course
+    err := json.NewDecoder(r.Body).Decode(&updatedCourse)
+    if err != nil {
+        http.Error(w, "Invalid request body", http.StatusBadRequest)
+        return
+    }
+
+    // Validate the updated course
+    if err := models.ValidateCourse(updatedCourse); err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
+
+    // Attempt to update the course
+    if err := models.UpdateCourse(updatedCourse); err != nil {
+        http.Error(w, err.Error(), http.StatusNotFound)
+        return
+    }
+
+    w.WriteHeader(http.StatusOK)
+    json.NewEncoder(w).Encode("Course updated successfully")
+}

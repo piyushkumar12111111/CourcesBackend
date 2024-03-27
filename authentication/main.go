@@ -27,5 +27,13 @@ func main() {
 	//! api for adding new course
 	r.HandleFunc("/courses", handlers.AddCourseHandler).Methods("POST") // Add new course
 
+	//! update course api
+	r.HandleFunc("/courses/{id}", handlers.UpdateCourseHandler).Methods("PUT") // New line for updating a course
+
+	//! Profile routes
+	r.HandleFunc("/profile", handlers.AddProfileHandler).Methods("POST")
+	r.HandleFunc("/profile/{userID}", handlers.GetProfileHandler).Methods("GET")
+	r.HandleFunc("/profile/{userID}", handlers.DeleteProfileHandler).Methods("DELETE")
+
 	log.Fatal(http.ListenAndServe(":9080", r))
 }
