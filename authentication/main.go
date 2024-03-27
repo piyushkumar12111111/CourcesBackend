@@ -59,6 +59,13 @@ func main() {
 	r.HandleFunc("/selling", handlers.AddItemHandler).Methods("POST")
 	r.HandleFunc("/selling/{id}", handlers.DeleteItemHandler).Methods("DELETE")
 	r.HandleFunc("/selling/{id}", handlers.UpdateItemHandler).Methods("PUT")
+	r.HandleFunc("/sellingall", handlers.DeleteAllItemHandler).Methods("DELETE")
+
+
+	//! Define the route for sending mail
+	
+    r.HandleFunc("/sendmail", handlers.SendMailHandler).Methods("POST")
+
 
 	//! Start the server
 

@@ -78,3 +78,15 @@ func DeleteItemHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode("Item not found")
 
 }
+
+
+func DeleteAllItemHandler(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	models.Items = nil
+
+	json.NewEncoder(w).Encode("All items deleted Succesfully")
+
+}
