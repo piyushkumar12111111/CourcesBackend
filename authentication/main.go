@@ -5,18 +5,24 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/piyushkumar/authentication/authentication/middleware"
 	"github.com/piyushkumar/authentication/authentication/handlers"
+	"github.com/piyushkumar/authentication/authentication/middleware"
 )
 
 func main() {
-    r := mux.NewRouter()
+	r := mux.NewRouter()
 
-    r.HandleFunc("/signup", handlers.SignUpHandler).Methods("POST")
-    r.HandleFunc("/signin", handlers.SignInHandler).Methods("POST")
-    protected := r.PathPrefix("/protected").Subrouter()
-    protected.Use(middleware.AuthMiddleware)
-    protected.HandleFunc("", handlers.ProtectedHandler).Methods("GET")
+	// Authentication routes
+	r.HandleFunc("/signup", handlers.SignUpHandler).Methods("POST")
+	r.HandleFunc("/signin", handlers.SignInHandler).Methods("POST")
 
-    log.Fatal(http.ListenAndServe(":9080", r))
+	// Protected routes
+	protected := r.PathPrefix("/protected").Subrouter()
+	protected.Use(middleware.AuthMiddleware)
+	protected.HandleFunc("", handlers.ProtectedHandler).Methods("GET")
+
+	// Public routes
+	r.HandleFunc("/courses", handlers.GetAllCoursesHandler).Methods("GET") // New line
+
+	log.Fatal(http.ListenAndServe(":9080", r))
 }
