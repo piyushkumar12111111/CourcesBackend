@@ -46,8 +46,16 @@ func main() {
 	  r.HandleFunc("/courses/{courseID}/teachers", handlers.AddTeacherToCourseHandler).Methods("POST")
 	  r.HandleFunc("/courses/{courseID}/teachers", handlers.GetTeachersOfCourseHandler).Methods("GET")
 
+
+
+	 //! Post routes
+	 r.HandleFunc("/posts", handlers.AddPostHandler).Methods("POST")
+	 r.HandleFunc("/posts", handlers.GetAllPostsHandler).Methods("GET")  
+
+	 r.HandleFunc("/posts/{id}", handlers.DeletePostHandler).Methods("DELETE")
+
 	//! Start the server
 	log.Fatal(http.ListenAndServe(":9080", r))
 
-	
+
 }
