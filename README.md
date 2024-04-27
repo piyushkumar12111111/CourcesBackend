@@ -1,1 +1,1 @@
-go lang to take
+go lang to take go mod init
